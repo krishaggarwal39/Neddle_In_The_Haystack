@@ -7,7 +7,10 @@ A local React and FastAPI application for searching text-based PDFs, UTF-8 text,
 All required academic deliverables, worksheets, and project documentation for evaluation are organized in the **[`submission_docs/`](submission_docs/)** directory:
 * **Directory Link:** [`submission_docs/`](submission_docs/)
 * **Included Deliverables:** Academic worksheets, assignment submissions, and project reports accompanying this codebase.
-* Refer to [`submission_docs/README.md`](submission_docs/README.md) for individual document descriptions and student details.
+* Refer to [`submission_docs/README.md`](submission_docs/README.md) for individual document descriptions:
+  - Unit 1 Worksheet: [`RM_worksheet_UNIT_1_filled_Krish_Aggarwal.pdf`](submission_docs/RM_worksheet_UNIT_1_filled_Krish_Aggarwal.pdf)
+  - Unit 2 Worksheet: [`RM_UNIT_2_COMPLETED_KRISH_AGGARWAL.pdf`](submission_docs/RM_UNIT_2_COMPLETED_KRISH_AGGARWAL.pdf)
+  - Unit 3 Worksheet: [`RM_UNIT_3_COMPLETED_KRISH_AGGARWAL.pdf`](submission_docs/RM_UNIT_3_COMPLETED_KRISH_AGGARWAL.pdf)
 
 ## Run locally
 
