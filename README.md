@@ -2,6 +2,13 @@
 
 A local React and FastAPI application for searching text-based PDFs, UTF-8 text, and Markdown using the paper in this repository. Documents and embeddings are stored in `data/documents.sqlite3`; uploaded originals are not retained. Ollama provides the embedding and answer models.
 
+## 🎓 Coursework & Academic Submission
+
+All required academic deliverables, worksheets, and project documentation for evaluation are organized in the **[`submission_docs/`](submission_docs/)** directory:
+* **Directory Link:** [`submission_docs/`](submission_docs/)
+* **Included Deliverables:** Academic worksheets, assignment submissions, and project reports accompanying this codebase.
+* Refer to [`submission_docs/README.md`](submission_docs/README.md) for individual document descriptions and student details.
+
 ## Run locally
 
 1. Install [Ollama](https://ollama.com/) and start its service. Pull the models:
