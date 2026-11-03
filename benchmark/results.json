@@ -1,0 +1,418 @@
+{
+  "dataset": "LongBench MultiFieldQA-en mirror",
+  "seed": 42,
+  "eligible": 122,
+  "sample_size": 10,
+  "results": [
+    {
+      "id": "b41aef2d0475f46a78a3168c6c8a614170975f82507cf2e4",
+      "words": 2481,
+      "question": "Is there any evidence of heaven and hell?",
+      "gold": [
+        "Unknown."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 11.540689000015846,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 5.655773290985962,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 0.22320854201097973,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "generator_seconds": 13.959431416995358,
+          "context_words": 2427,
+          "calls": 5
+        }
+      }
+    },
+    {
+      "id": "120cb783c796fbedbc76f04cf9be3318e54a63cd642c4401",
+      "words": 6215,
+      "question": "What is the main methodology used in the research?",
+      "gold": [
+        "An unsupervised method based on the information bottleneck and contrastive learning."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "The main methodology used in the research is a combination of contrastive learning and compositional communication, specifically using a variational autoencoder (VAE) to ground discrete communication in input observations. This approach aims to satisfy both the complexity objective and the utility objective of the information bottleneck problem.",
+          "f1": 0.20408163265306123,
+          "answer_string_in_context": false,
+          "generator_seconds": 11.176740791997872,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "Contrastive learning.",
+          "f1": 0.36363636363636365,
+          "answer_string_in_context": false,
+          "generator_seconds": 8.934738332987763,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 5.650746792001883,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "The main methodology used in the research is based on contrastive learning and information bottleneck to capture referential complexity and task-specific utility for adequate exploration of sparse social communication scenarios in multi-agent reinforcement learning (MARL).",
+          "f1": 0.3333333333333333,
+          "generator_seconds": 5.920009041990852,
+          "context_words": 800,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "41e27260a12cc40a778f8c1ba8bf643ee655871a458e5e1c",
+      "words": 6218,
+      "question": "Why is it important for the sides of the fuselage to be sloped (tumbled home)?",
+      "gold": [
+        "The sides of the fuselage are sloped to create a conical section when the fuselage is formed."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "The problem starts when the side panels are bent and sloped to form the fuselage box section. If the sides were not sloped, the section formed would be cylindrical and the longerons would lie flat. Since the sides are tumbled home, the section formed is now conical. When a conical shape is cut with a plane (building surface) not perpendicular to it's axis, the shape formed is elliptical -- exactly what happens with the top longeron.",
+          "f1": 0.2631578947368421,
+          "answer_string_in_context": false,
+          "generator_seconds": 12.244932667003013,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "The sides being tumbled home results in a conical shape when cut with a plane, which leads to an elliptical shape firewall to tailstock.",
+          "f1": 0.24242424242424243,
+          "answer_string_in_context": false,
+          "generator_seconds": 8.970406208973145,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "The sides being tumbled home results in a conical shape when cut with a plane, which leads to an elliptical shape firewall to tailstock.",
+          "f1": 0.24242424242424243,
+          "answer_string_in_context": false,
+          "generator_seconds": 6.494134625012521,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "generator_seconds": 20.291387125005713,
+          "context_words": 3672,
+          "calls": 7
+        }
+      }
+    },
+    {
+      "id": "45e06726b160cfb851e2179017f90e37f4f4dec62f346e33",
+      "words": 2158,
+      "question": "What may happen if the VR headset lenses are exposed to sunlight or strong light?",
+      "gold": [
+        "Exposure to sunlight or strong light may cause permanent yellow spot damage on the screen."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "Permanent yellow spot damage on the screen.",
+          "f1": 0.6,
+          "answer_string_in_context": false,
+          "generator_seconds": 10.525064249988645,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "Permanent yellow spot damage on the screen.",
+          "f1": 0.6,
+          "answer_string_in_context": false,
+          "generator_seconds": 0.3846862909849733,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "Permanent yellow spot damage on the screen.",
+          "f1": 0.6,
+          "answer_string_in_context": false,
+          "generator_seconds": 0.3921149169909768,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "Permanent yellow spot damage on the screen.",
+          "f1": 0.6,
+          "generator_seconds": 12.86557549997815,
+          "context_words": 719,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "b619fa683cbbeb8db3d575fc2e261940701a530452b14eef",
+      "words": 2095,
+      "question": "What molecule was the focus of the study?",
+      "gold": [
+        "The focus of the study was on the reactive radical ethynyl (C$_2$H)."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "C$_2$H (reactive radical ethynyl)",
+          "f1": 0.6153846153846154,
+          "answer_string_in_context": false,
+          "generator_seconds": 13.996236582985148,
+          "context_words": 2015,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "C$_2$H (reactive radical ethynyl)",
+          "f1": 0.6153846153846154,
+          "answer_string_in_context": false,
+          "generator_seconds": 10.119845084002009,
+          "context_words": 2015,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "C$_2$H (reactive radical ethynyl)",
+          "f1": 0.6153846153846154,
+          "answer_string_in_context": false,
+          "generator_seconds": 10.126618125010282,
+          "context_words": 2015,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "The molecule that was the focus of the study is ethynyl (C$_2$H).",
+          "f1": 0.6666666666666666,
+          "generator_seconds": 6.22554625000339,
+          "context_words": 698,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "aeb34faf1b5507b32d6d5b49474ea5c71d4ec2aa84a82d93",
+      "words": 5635,
+      "question": "What is the main advantage of the proposed method in terms of computation time?",
+      "gold": [
+        "The time required to update the belief does not increase with the complexity of the environment."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 9.288115333009046,
+          "context_words": 2019,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 8.40149245801149,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 7.247299167007441,
+          "context_words": 2019,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "generator_seconds": 16.591223166993586,
+          "context_words": 3478,
+          "calls": 7
+        }
+      }
+    },
+    {
+      "id": "1f3b1e37c3d2ead7ab4fe7dd9d5cddd55b2c76d28e6bfc86",
+      "words": 2530,
+      "question": "What types of data did the authors use in their experiments?",
+      "gold": [
+        "The authors used simulated data and real data from a wireless MISO channel."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 15.859053042018786,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 10.558051708008861,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": false,
+          "generator_seconds": 0.2617947499966249,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "generator_seconds": 22.30350133299362,
+          "context_words": 2443,
+          "calls": 5
+        }
+      }
+    },
+    {
+      "id": "74334862b5d8e2a02deb3c24aa90d5339e443fbc412453b8",
+      "words": 3132,
+      "question": "What were the vaccines trialed against?",
+      "gold": [
+        "Other toxic products."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 9.408353000006173,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 7.490871582995169,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "NOT_FOUND.",
+          "f1": 0.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 4.820851416996447,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "NOT_FOUND",
+          "f1": 0.0,
+          "generator_seconds": 15.024219334009103,
+          "context_words": 2644,
+          "calls": 5
+        }
+      }
+    },
+    {
+      "id": "470018af720bc15decf8f7a9643250c9a6548c8efeb394cd",
+      "words": 2076,
+      "question": "Who was Brooksley Elizabeth's first husband?",
+      "gold": [
+        "Jacob C. Landau."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "Jacob C. Landau",
+          "f1": 1.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 11.49950262499624,
+          "context_words": 1996,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "Jacob C. Landau",
+          "f1": 1.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 5.9246299999940675,
+          "context_words": 1996,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "Jacob C. Landau",
+          "f1": 1.0,
+          "answer_string_in_context": true,
+          "generator_seconds": 5.700439000007464,
+          "context_words": 1996,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "Jacob C. Landau",
+          "f1": 1.0,
+          "generator_seconds": 4.604619249992538,
+          "context_words": 692,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "7d357dddfddb09bf71c6ce3d2c6780b3380d725f534d0b91",
+      "words": 7551,
+      "question": "How are smartphones and tablets different from a technical perspective?",
+      "gold": [
+        "Smartphones are more compact and power constrained."
+      ],
+      "methods": {
+        "bm25": {
+          "answer": "Smartphones and tablets are very different products from a technical perspective. Smartphones are far more compact and power-constrained, with limited thermal dissipation and a cellular modem as an absolute necessity. In contrast, tablets have greater power budgets, up to 4W for passively cooled devices and as high as 7-8W for systems with fans, allowing for a wider range of designs and options.",
+          "f1": 0.18461538461538463,
+          "answer_string_in_context": false,
+          "generator_seconds": 14.169067375012673,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "dense": {
+          "answer": "Smartphones and tablets are very different products from a technical perspective. Smartphones are far more compact and power-constrained, with SoCs limited to around 1W by batteries and thermal dissipation. The raison d'\u00eatre of a smartphone is connectivity, so a cellular modem is an absolute necessity, often integrated into the SoC itself for cost-sensitive models. In contrast, tablets have much greater power budgets (up to 4W for passively cooled devices) and are more akin to PCs technically and",
+          "f1": 0.15384615384615385,
+          "answer_string_in_context": false,
+          "generator_seconds": 14.288029334013117,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "hybrid": {
+          "answer": "Smartphones and tablets are very different products from a technical perspective. Smartphones are compact, power-constrained devices that rely on cellular modems for connectivity, with limited power budgets (around 1W). In contrast, tablets have greater power budgets (up to 4W for passively cooled devices) and default to Wi-Fi connectivity rather than cellular modems, making them more akin to PCs.",
+          "f1": 0.1875,
+          "answer_string_in_context": false,
+          "generator_seconds": 13.51426175000961,
+          "context_words": 2048,
+          "calls": 1
+        },
+        "original_rber": {
+          "answer": "The context explicitly states that \"phones and tablets are mobile devices that often share a great deal of software, it's becoming increasingly clear the two are very different products.\"",
+          "f1": 0.12121212121212122,
+          "generator_seconds": 6.4049054170027375,
+          "context_words": 800,
+          "calls": 1
+        }
+      }
+    }
+  ]
+}
