@@ -174,7 +174,7 @@
 }
 
 @misc{aggarwal2026rber,
-  author       = {Krish Aggarwal and Veer Vikram Singh},
+  author       = {Krish Aggarwal and Veer Vikram Singh and Kushagra and Punya},
   title        = {{RBER}: Recursive Boundary Exposure Retrieval Framework and Local {RAG} Engine},
   month        = nov,
   year         = {2026},
@@ -204,6 +204,7 @@
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
+\usepackage{balance}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing,patterns,plotmarks}
 \usepackage{tcolorbox}
@@ -224,12 +225,12 @@
 \title{Recursive Boundary Exposure Retrieval (RBER): Exploiting Positional Attention Bias for Long-Context Information Extraction and Zero-Leakage Edge RAG}
 
 \author{
-    \IEEEauthorblockN{Krish Aggarwal\IEEEauthorrefmark{1}, Veer Vikram Singh\IEEEauthorrefmark{2}}
+    \IEEEauthorblockN{Krish Aggarwal\IEEEauthorrefmark{1}, Veer Vikram Singh\IEEEauthorrefmark{2}, Kushagra\IEEEauthorrefmark{1}, Punya\IEEEauthorrefmark{1}}
     \IEEEauthorblockA{\IEEEauthorrefmark{1}Department of Computer Science and Engineering\\
     Email: kaggarwal858@gmail.com, GitHub: \url{https://github.com/krishaggarwal39}}
     \IEEEauthorblockA{\IEEEauthorrefmark{2}Core Research Collaborator\\
     Email: veer.vikram@alumni.research.org}
-    \thanks{Corresponding author: Krish Aggarwal (kaggarwal858@gmail.com). Code and benchmarks: \url{https://github.com/krishaggarwal39/Neddle_In_The_Haystack.git}. Zenodo Archive: \url{https://doi.org/10.5281/zenodo.14028391}.}
+    \thanks{Corresponding author: Krish Aggarwal (kaggarwal858@gmail.com). Authors are listed as collaborative team members for academic evaluation and research deliverables. Code and benchmarks: \url{https://github.com/krishaggarwal39/Neddle_In_The_Haystack.git}. Zenodo Archive: \url{https://doi.org/10.5281/zenodo.14028391}.}
 }
 
 \maketitle
@@ -841,15 +842,15 @@ To facilitate human verification and auditable retrieval workflows, \RBER{} incl
     enhanced,
     colback=white,
     colframe=gray!50!black,
-    arc=4pt,
-    width=0.95\textwidth,
-    boxrule=1pt,
+    arc=3pt,
+    width=0.92\textwidth,
+    boxrule=0.8pt,
     title={\small \textbf{\textsf{RBER}} \textbf{Interactive Web Workspace Dashboard \& Peeling Trace Inspector}},
     coltitle=white,
     colbacktitle=gray!80!black
 ]
 \centering
-\resizebox{0.92\linewidth}{!}{%
+\resizebox{0.86\linewidth}{!}{%
 \begin{tikzpicture}[x=1cm, y=1cm, every node/.style={font=\scriptsize}]
     % Background Workspace Window
     \draw[fill=gray!5, draw=gray!30, rounded corners=3pt] (0,0) rectangle (16,6.5);
@@ -952,25 +953,14 @@ In compliance with open science and reproducibility standards:
 
 \subsection{Reproduction Command Line Guide}
 Researchers can replicate all reported benchmark tables using:
-\begin{footnotesize}
+\begin{scriptsize}
 \begin{verbatim}
-# 1. Clone repository
-git clone https://github.com/krishaggarwal39/\
-          Neddle_In_The_Haystack.git
-cd Neddle_In_The_Haystack
-
-# 2. Virtualenv & dependencies
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-# 3. Pull required Ollama local models
-ollama pull llama3.2 && ollama pull nomic-embed-text
-
-# 4. Execute automated NIAH & LongBench suite
-python benchmarks/benchmark_retrieval.py
-python benchmark/run.py
+git clone https://github.com/krishaggarwal39/Neddle_In_The_Haystack.git
+cd Neddle_In_The_Haystack && python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt && ollama pull llama3.2 && ollama pull nomic-embed-text
+python benchmarks/benchmark_retrieval.py && python benchmark/run.py
 \end{verbatim}
-\end{footnotesize}
+\end{scriptsize}
 
 % ==============================================================================
 % SECTION XIII: CONCLUSION
@@ -986,6 +976,7 @@ This paper presented \textbf{Recursive Boundary Exposure Retrieval (\RBER)}, an 
 \section*{Acknowledgment}
 The authors thank the open-source communities behind Ollama, FastAPI, and Meta's Llama models for providing accessible edge-AI tools.
 
+\balance
 \bibliographystyle{IEEEtran}
 \bibliography{\jobname,references}
 
