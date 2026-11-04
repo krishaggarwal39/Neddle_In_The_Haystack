@@ -18,7 +18,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing,patterns}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing,patterns,plotmarks}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 
@@ -68,7 +68,7 @@ Long-Context Transformers, Lost-in-the-Middle, Retrieval-Augmented Generation (R
 \section{Introduction}
 \label{sec:intro}
 
-The emergence of extended-context Transformer architectures has catalyzed unprecedented advances across document synthesis, clinical record auditing, multi-jurisdiction legal analysis, and complex code comprehension~\cite{vaswani2017attention,dubey2024llama3}. Modern foundational models routinely advertise input context windows exceeding $128\text{k}$ tokens. However, empirical investigations—most prominently the seminal findings of Liu et al.~\cite{liu2023lost}—reveal that long-context capability does not equate to uniform context utilization. Instead, Transformer attention mechanisms display an intrinsic, severe positional asymmetry known as the \emph{Lost-in-the-Middle} phenomenon.
+The emergence of extended-context Transformer architectures has catalyzed unprecedented advances across document synthesis, clinical record auditing, multi-jurisdiction legal analysis, and complex code comprehension~\cite{vaswani2017attention,dubey2024llama3,xiong2023effective}. Earlier efforts to alleviate sequence length restrictions introduced sparse attention patterns, such as Longformer~\cite{beltagy2020longformer} and BigBird~\cite{zaheer2020bigbird}, or I/O-aware exact attention kernels like FlashAttention~\cite{dao2022flashattention}. Modern foundation models routinely advertise context horizons past $128\text{k}$ tokens. However, empirical investigations---most prominently the seminal findings of Liu et al.~\cite{liu2023lost}---reveal that long-context capability does not equate to uniform context utilization. Instead, Transformer attention mechanisms display an intrinsic, severe positional asymmetry known as the \emph{Lost-in-the-Middle} phenomenon.
 
 As illustrated in Fig.~\ref{fig:attention_curve}, when a model is presented with an extensive textual horizon, retrieval fidelity follows a pronounced U-shaped curve: tokens situated near the beginning (primacy effect) and the terminal boundary (recency effect) are attended to with near-perfect accuracy, whereas information buried within the central $40\%$--$60\%$ of the context experiences catastrophic recall degradation~\cite{kamradt2023needle,xiao2023efficient}.
 
@@ -112,7 +112,7 @@ Prior research has predominantly treated positional decay as an architectural de
 \begin{enumerate}
     \item \textbf{Positional Embedding Scaling:} Techniques such as Rotary Position Embedding (RoPE) interpolation~\cite{su2024roformer,chen2023extending}, YaRN~\cite{peng2023yarn}, and ALiBi~\cite{press2022train} extend sequence limits but do not eliminate internal attention entropy.
     \item \textbf{Context Permutation and Shuffling:} Permuting document sections introduces combinatorial complexity ($\mathcal{O}(K!)$) while fragmenting discursive coherence.
-    \item \textbf{Chunked Dense Retrieval (Standard RAG):} Fragmenting documents into disjoint 256--512 token windows~\cite{lewis2020retrieval,karpukhin2020dense} destroys macro-structural semantics and cross-passage reasoning.
+    \item \textbf{Chunked Dense Retrieval (Standard RAG):} Fragmenting documents into disjoint 256--512 token windows~\cite{lewis2020retrieval,karpukhin2020dense,gao2023precise,robertson2009probabilistic} destroys macro-structural semantics and cross-passage reasoning. Even when enhanced by late interaction (ColBERT~\cite{khattab2020colbert}) or iterative self-reflection (Self-RAG~\cite{asai2023selfrag}, conversational grounding~\cite{shuster2021retrieval}), fixed chunking severs narrative continuity.
 \end{enumerate}
 
 \noindent\textbf{Our Core Insight:} Rather than attempting to force an attention mechanism to distribute weights uniformly across 100,000 tokens—an objective contrary to the inductive biases of self-attention—we ask:
@@ -143,7 +143,7 @@ To intuitively illustrate the operational mechanics of \RBER{}, consider a multi
     
     % The Patty (Target)
     \draw[fill=red!30, draw=red!80!black, line width=1.5pt] (0,1.8) rectangle (6,2.3);
-    \node[font=\footnotesize\bfseries, text=red!70!black] at (3,2.05) {THE PATTY (Target Needle: "2004") [Lost-in-Middle]};
+    \node[font=\footnotesize\bfseries, text=red!70!black] at (3,2.05) {THE PATTY (Target Needle: ``2004'') [Lost-in-Middle]};
     
     % Cheese
     \draw[fill=yellow!35, draw=yellow!80!black, thick] (0,1.1) rectangle (6,1.6);
@@ -239,7 +239,7 @@ We define the \textbf{Chunk-Level Max-Pooling Score} $S(Q, B)$ as:
 \begin{equation}
     S(Q, B) = \max_{c \in \text{Chunks}(B)} \left[ \frac{\mathcal{E}(Q) \cdot \mathcal{E}(c)}{\norm{\mathcal{E}(Q)}_2 \norm{\mathcal{E}(c)}_2} \right]
 \end{equation}
-This formulation guarantees that if a single 15-word needle exists anywhere within a 10,000-word partition, its cosine alignment is preserved at peak amplitude without attenuation from surrounding text.
+This formulation guarantees that if a single 15-word needle exists anywhere within a 10,000-word partition, its cosine alignment with query embedding vector $\mathcal{E}(Q)$ (generated via \texttt{nomic-embed-text}~\cite{nussbaum2024nomic}) is preserved at peak amplitude without attenuation from surrounding text.
 
 \subsection{Bounded Boundary Views}
 Sending an entire multi-thousand-word partition to the LLM during intermediate screening re-introduces positional bias. Therefore, \RBER{} extracts a bounded \textbf{Boundary View} $V(B)$ of fixed parameter $W_{\text{bound}} = 400$ words:
@@ -277,6 +277,8 @@ When both boundaries return $\mathcal{C} = 0$, conventional \RBER{} peels inward
 where $\gamma = 0.05$ is the vector significance margin.
 
 \subsection{Theoretical Convergence Analysis}
+As formalized in Theorem~\ref{thm:convergence}, tri-partition recursive boundary peeling contracts the active search space logarithmically.
+
 \begin{theorem}[Logarithmic Convergence]
 \label{thm:convergence}
 Let document $D$ contain $N$ words and assume a target needle resides within $D$. Let the minimum evaluatable core size be $W_{\text{min}}$. Under tri-partition boundary exposure with partition factor $\rho = 1/3$, \RBER{} isolates the needle in an exposed boundary within a maximum recursion depth:
@@ -380,28 +382,29 @@ Algorithm~\ref{alg:rber} outlines the complete \RBER{} execution pipeline. Algor
     arrow/.style={-{Latex[length=2.5mm]}, thick, gray!80!black}
 ]
     % Client / UI
-    \node[box, fill=yellow!15, draw=orange!70!black] (ui) at (0, 0) {\textbf{React 18 / Vite UI}\\Document Workspace\\Interactive Boundary Inspector};
+    \node[box, fill=yellow!15, draw=orange!70!black] (ui) at (0, 0) {\textbf{React 18 / Vite UI}\\ Document Workspace\\ Interactive Boundary Inspector};
     
     % FastAPI Backend
-    \node[box, fill=cyan!15, draw=cyan!70!black, right=1.2cm of ui] (api) {\textbf{FastAPI Gateway}\\Asynchronous Endpoints\\Connection Pool / Concurrency Lock};
+    \node[box, fill=cyan!15, draw=cyan!70!black, right=1.2cm of ui] (api) {\textbf{FastAPI Gateway}\\ Asynchronous Endpoints\\ Connection Pool / Concurrency Lock};
     
     % SQLite Database
-    \node[databox, below=1.0cm of api] (db) {\textbf{SQLite3 (WAL Mode)}\\Chunks \& Embeddings\\Compressed Texts (zlib)\\Page Cache (-64MB)};
+    \node[databox, below=1.0cm of api] (db) {\textbf{SQLite3 (WAL Mode)}\\ Chunks \& Embeddings\\ Compressed Texts (zlib)\\ Page Cache (-64MB)};
     
     % Tri-partition Splitter
-    \node[box, right=1.2cm of api] (split) {\textbf{Tri-Partition Peeler}\\Left / Right Boundaries\\Middle Core Exposure\\$\delta_p$ Seam Padding};
+    \node[box, right=1.2cm of api] (split) {\textbf{Tri-Partition Peeler}\\ Left / Right Boundaries\\ Middle Core Exposure\\ $\delta_p$ Seam Padding};
     
     % Chunk Scorer
-    \node[box, above=0.8cm of split] (scorer) {\textbf{Chunk-Level Scorer}\\Max-Pooling $\max \cos(Q, c)$\\768-d Vector Cosine};
+    \node[box, above=0.8cm of split] (scorer) {\textbf{Chunk-Level Scorer}\\ Max-Pooling $\max \cos(Q, c)$\\ 768-d Vector Cosine};
     
     % Parallel Screener
-    \node[modelbox, right=1.4cm of split] (screener) {\textbf{Local Ollama Engine}\\\texttt{Llama 3.2 3B} / \texttt{1B Screener}\\Greedy Decoding ($\mathcal{T}=0.0$)\\\texttt{nomic-embed-text} (768-d)};
+    \node[modelbox, right=1.4cm of split] (screener) {\textbf{Local Ollama Engine}\\ \texttt{Llama 3.2 3B} / \texttt{1B Screener}\\ Greedy Decoding ($\mathcal{T}=0.0$)\\ \texttt{nomic-embed-text} (768-d)};
     
     % Synthesizer
     \node[box, fill=red!15, draw=red!70!black, below=0.8cm of split] (synth) {\textbf{Evidence Synthesizer}\\Early Stopping Evaluator\\Verified Answer Generation};
 
     % Connections
-    \draw[arrow] (ui) -- node[above, font=\tiny] {HTTP / JSON} (api);
+    \draw[arrow] ([yshift=3pt]ui.east) -- node[above, font=\tiny] {HTTP / JSON} ([yshift=3pt]api.west);
+    \draw[arrow] ([yshift=-3pt]api.west) -- node[below, font=\tiny] {Real-Time Traces} ([yshift=-3pt]ui.east);
     \draw[arrow] (api) -- node[left, font=\tiny] {Cache / Query} (db);
     \draw[arrow] (api) -- (split);
     \draw[arrow] (split) -- (scorer);
@@ -409,7 +412,6 @@ Algorithm~\ref{alg:rber} outlines the complete \RBER{} execution pipeline. Algor
     \draw[arrow] (split) -- node[above, font=\tiny] {Boundary Views} (screener);
     \draw[arrow] (screener) |- node[right, font=\tiny] {Confidence $\ge \tau$} (synth);
     \draw[arrow] (synth) -| node[below, font=\tiny] {Verified Answer} (api);
-    \draw[arrow] (api) -- node[below, font=\tiny] {Real-Time Traces} (ui);
 
 \end{tikzpicture}
 \caption{End-to-End System Architecture of \RBER{}. The system integrates an asynchronous FastAPI gateway with SQLite Write-Ahead Logging binary storage, chunk-level max-pooling cosine scoring, parallel boundary screening via local Ollama LLMs, and an interactive React 18 user interface.}
@@ -467,7 +469,7 @@ The entire system is architected for zero-leakage, edge-native deployment (Fig.~
 \textbf{Memory} & 16.0 GB Unified Memory (68.25 GB/s bandwidth) \\
 \textbf{Inference Accelerator} & Metal Performance Shaders (MPS) / Apple Neural Engine \\
 \textbf{Inference Engine} & Local Ollama v0.5.4 \\
-\textbf{Generative Model} & \texttt{Llama 3.2 3B-Instruct} ($q4\_K\_M$ quantized) \\
+\textbf{Generative Model} & \texttt{Llama 3.2 3B-Instruct} (\texttt{q4\_K\_M} quantized) \\
 \textbf{Embedding Model} & \texttt{nomic-embed-text-v1.5} (768 dimensions) \\
 \textbf{Backend Framework} & Python 3.11, FastAPI 0.115, Uvicorn, HTTPX \\
 \textbf{Storage Layer} & SQLite 3.43 (WAL mode, cache size -64000) \\
@@ -492,13 +494,13 @@ This reduces disk I/O latency to $<2\text{ms}$ per query pass. Document text bod
 \label{sec:results}
 
 \subsection{Needle-in-a-Haystack Empirical Performance}
-Table~\ref{tab:niah_results} presents empirical results on the 21,408-word benchmark across 5 distinct retrieval paradigms.
+Table~\ref{tab:niah_results} presents empirical results on the 21,408-word benchmark across 5 distinct retrieval paradigms. Furthermore, as visualized in Fig.~\ref{fig:needle_depth_comparison}, retrieval accuracy across the 21 tested depth positions demonstrates that while vanilla LLM recall collapses to 0.0\% throughout the interior 30\%--80\% region, \RBER{} consistently maintains 100\% Exact Match recall.
 
 \begin{table*}[t]
 \centering
 \caption{Empirical Needle-in-a-Haystack (NIAH) Performance Comparison on 21,408-Word Document}
 \label{tab:niah_results}
-\begin{tabularx}{\textwidth}{lccccc}
+\begin{tabularx}{\textwidth}{Xccccc}
 \toprule
 \textbf{Retrieval / Reasoning Paradigm} & \textbf{Recursion Depth ($d^*$)} & \textbf{Evaluated Words} & \textbf{Token Footprint Reduction} & \textbf{Exact Match (EM)} & \textbf{End-to-End Latency} \\
 \midrule
@@ -578,7 +580,7 @@ Table~\ref{tab:longbench} presents evaluation metrics on the LongBench pilot sub
 \centering
 \caption{LongBench MultiFieldQA-en Benchmark Comparison}
 \label{tab:longbench}
-\begin{tabularx}{\columnwidth}{lcccc}
+\begin{tabularx}{\columnwidth}{Xcccc}
 \toprule
 \textbf{Method} & \textbf{Token F1} & \textbf{Words Passed} & \textbf{Model Calls} & \textbf{Time} \\
 \midrule
@@ -602,7 +604,7 @@ To dissect the specific contributions of each algorithmic module, we conducted c
 \centering
 \caption{Ablation Analysis of Architectural Components}
 \label{tab:ablations}
-\begin{tabularx}{\columnwidth}{lcccc}
+\begin{tabularx}{\columnwidth}{Xcccc}
 \toprule
 \textbf{Configuration} & \textbf{EM (\%)} & \textbf{Depth ($d^*$)} & \textbf{Calls} & \textbf{Latency} \\
 \midrule
@@ -638,10 +640,11 @@ To facilitate human verification and auditable retrieval workflows, \RBER{} incl
     arc=4pt,
     width=0.98\textwidth,
     boxrule=1pt,
-    title={\small \textbf{Figure 5: High-Fidelity Vector Representation of the \RBER{} Web Workspace UI}},
+    title={\small \textbf{\textsf{RBER}} \textbf{Interactive Web Workspace Dashboard \& Peeling Trace Inspector}},
     coltitle=white,
     colbacktitle=gray!80!black
 ]
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[x=1cm, y=1cm, every node/.style={font=\scriptsize}]
     % Background Workspace Window
     \draw[fill=gray!5, draw=gray!30, rounded corners=3pt] (0,0) rectangle (16,6.5);
@@ -699,7 +702,8 @@ To facilitate human verification and auditable retrieval workflows, \RBER{} incl
     \node[anchor=west, font=\tiny, fill=white, draw=gray!30, rounded corners=2pt] at (4.7, 0.5) 
         {\textit{``...Note: SECRET KEY: The combination to the safe is 2004. Keep this confidential...''}};
 
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{-2mm}
 \caption{Interactive \RBER{} Workspace and Boundary Trace Inspector. Users upload documents, execute semantic queries, inspect step-by-step peeling trajectories, and examine verified citations.}
@@ -735,8 +739,8 @@ In compliance with open science and reproducibility standards:
 \begin{itemize}
     \item \textbf{Source Code Repository:} The entire codebase, including FastAPI backend, React 18 UI, and benchmark scripts, is public at:\\
     \url{https://github.com/krishaggarwal39/Neddle_In_The_Haystack.git}
-    \item \textbf{Permanent Archive (Zenodo):} Software artifacts and benchmark traces are archived under DOI:\\
-    \url{https://doi.org/10.5281/zenodo.14028391}
+    \item \textbf{Permanent Archive (Zenodo):} Software artifacts, benchmark traces, and evaluation logs are permanently archived under DOI:\\
+    \url{https://doi.org/10.5281/zenodo.14028391}~\cite{aggarwal2026rber}
     \item \textbf{License:} Dual licensed under Apache 2.0 and MIT.
 \end{itemize}
 
