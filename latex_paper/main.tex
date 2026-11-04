@@ -949,10 +949,16 @@ In compliance with open science and reproducibility standards:
 Researchers can replicate all reported benchmark tables using:
 \begin{scriptsize}
 \begin{verbatim}
-git clone https://github.com/krishaggarwal39/Neddle_In_The_Haystack.git
-cd Neddle_In_The_Haystack && python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt && ollama pull llama3.2 && ollama pull nomic-embed-text
-python benchmarks/benchmark_retrieval.py && python benchmark/run.py
+git clone https://github.com/krishaggarwal39/\
+  Neddle_In_The_Haystack.git
+cd Neddle_In_The_Haystack
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+ollama pull llama3.2
+ollama pull nomic-embed-text
+python benchmarks/benchmark_retrieval.py
+python benchmark/run.py
 \end{verbatim}
 \end{scriptsize}
 
