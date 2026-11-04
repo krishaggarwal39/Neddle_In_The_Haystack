@@ -262,8 +262,11 @@ As illustrated in Fig.~\ref{fig:attention_curve}, when a model is presented with
 \begin{tikzpicture}
 \begin{scope}[scale=0.85]
     % Axes
-    \draw[->, thick, >=stealth] (0,0) -- (6.5,0) node[below, font=\scriptsize] {Relative Document Depth ($i/N$)};
-    \draw[->, thick, >=stealth] (0,0) -- (0,3.5) node[left, font=\scriptsize] {Attention Weight / Recall};
+    \draw[->, thick, >=stealth] (0,0) -- (6.3,0);
+    \draw[->, thick, >=stealth] (0,0) -- (0,3.6) node[above=2pt, font=\scriptsize] {Attention Weight / Recall};
+    
+    % Centered X label
+    \node[font=\scriptsize] at (3.0,-0.7) {Relative Document Depth ($i/N$)};
     
     % X-ticks
     \draw (0.5,0.05) -- (0.5,-0.05) node[below, font=\tiny] {0.0 (Start)};
@@ -277,16 +280,16 @@ As illustrated in Fig.~\ref{fig:attention_curve}, when a model is presented with
     
     % Conventional U-Curve
     \draw[red!80!black, ultra thick, smooth] 
-        plot coordinates {(0.5,3.0) (1.2,2.0) (2.0,0.8) (3.0,0.3) (4.0,0.8) (4.8,2.0) (5.5,3.0)};
-    \node[red!80!black, font=\scriptsize, align=center] at (3.0,0.9) {\textbf{Lost-in-the-Middle}\\\emph{(Catastrophic Decay)}};
+        plot coordinates {(0.5,3.0) (1.2,1.9) (2.0,0.8) (3.0,0.3) (4.0,0.8) (4.8,1.9) (5.5,3.0)};
+    \node[red!80!black, font=\scriptsize, align=center, fill=white, inner sep=1.5pt, rounded corners=2pt] at (3.0,1.3) {\textbf{Lost-in-the-Middle}\\\emph{(Catastrophic Attention Decay)}};
     
     % RBER Transformation Line
     \draw[blue!70!black, ultra thick, dashed] (0.5,2.8) -- (5.5,2.8);
-    \node[blue!70!black, font=\scriptsize, fill=white, inner sep=1pt] at (3.0,2.8) {\textbf{\RBER{} Effective Exposure ($\sim$100\%)}};
+    \node[blue!70!black, font=\scriptsize, fill=white, inner sep=1.5pt] at (3.0,2.8) {\textbf{\RBER{} Effective Exposure ($\sim$100\%)}};
     
     % Annotations
-    \node[font=\tiny, fill=green!15, draw=green!60!black, rounded corners=2pt] at (0.8,3.2) {Primacy Peak};
-    \node[font=\tiny, fill=green!15, draw=green!60!black, rounded corners=2pt] at (5.2,3.2) {Recency Peak};
+    \node[font=\tiny, fill=green!15, draw=green!60!black, rounded corners=2pt] at (0.8,3.25) {Primacy Peak};
+    \node[font=\tiny, fill=green!15, draw=green!60!black, rounded corners=2pt] at (5.2,3.25) {Recency Peak};
 \end{scope}
 \end{tikzpicture}
 \caption{The classical U-shaped attention distribution in extended-context Transformers~\cite{liu2023lost} compared against \RBER's recursive boundary exposure, which mechanically elevates buried information into boundary positions.}
@@ -346,8 +349,8 @@ To intuitively illustrate the operational mechanics of \RBER{}, consider a multi
     \node[right, font=\scriptsize\bfseries, blue!70!black] at (6.8,1.0) {Peel $B_{\text{right}}^{(0)}$};
     
     % Intermediate Result
-    \draw[dashed, gray!60, thick] (-0.3,0.2) rectangle (6.3,4.0);
-    \node[above, font=\scriptsize\itshape, gray!80!black] at (3,4.05) {Depth $d=0$: Target is shielded within interior};
+    \draw[dashed, gray!60, thick] (-0.3,0.1) rectangle (6.3,4.4);
+    \node[above, font=\scriptsize\itshape, gray!80!black] at (3,4.45) {Depth $d=0$: Target is shielded within interior};
 \end{tikzpicture}
 \vspace{-2mm}
 \caption{The Burger Analogy: In a multi-layer document, the target needle (The Patty) is shielded inside central layers. When outer layers are evaluated and stripped away, internal content is promoted to the newly formed boundary.}
@@ -431,10 +434,10 @@ Sending an entire multi-thousand-word partition to the LLM during intermediate s
 \begin{equation}
     V(B) = \begin{cases}
         B, & \text{if } |B| \le 2 W_{\text{bound}} \\
-        B[1 : W_{\text{bound}}] \;\mathbin{\Vert}\; B[|B|-W_{\text{bound}} : |B|], & \text{otherwise}
+        B_{\text{head}} \;\mathbin{\Vert}\; B_{\text{tail}}, & \text{otherwise}
     \end{cases}
 \end{equation}
-This ensures that the boundary evaluator evaluates only tokens that reside strictly within the peak primacy and recency attention zones.
+where $B_{\text{head}} = B[1 : W_{\text{bound}}]$ and $B_{\text{tail}} = B[|B|-W_{\text{bound}} : |B|]$. This ensures that the boundary evaluator evaluates only tokens that reside strictly within the peak primacy and recency attention zones.
 
 \subsection{Deterministic Boundary Screening}
 For each boundary view $V(B)$, a greedy decoding evaluation ($\mathcal{T} = 0.0$) is executed using system prompt $\mathcal{M}_{\text{sys}}$:
@@ -570,13 +573,13 @@ Algorithm~\ref{alg:rber} outlines the complete \RBER{} execution pipeline. Algor
     \node[box, fill=yellow!15, draw=orange!70!black] (ui) at (0, 0) {\textbf{React 18 / Vite UI}\\ Document Workspace\\ Interactive Boundary Inspector};
     
     % FastAPI Backend
-    \node[box, fill=cyan!15, draw=cyan!70!black, right=1.2cm of ui] (api) {\textbf{FastAPI Gateway}\\ Asynchronous Endpoints\\ Connection Pool / Concurrency Lock};
+    \node[box, fill=cyan!15, draw=cyan!70!black, right=1.6cm of ui] (api) {\textbf{FastAPI Gateway}\\ Asynchronous Endpoints\\ Connection Pool / Lock};
     
     % SQLite Database
     \node[databox, below=1.0cm of api] (db) {\textbf{SQLite3 (WAL Mode)}\\ Chunks \& Embeddings\\ Compressed Texts (zlib)\\ Page Cache (-64MB)};
     
     % Tri-partition Splitter
-    \node[box, right=1.2cm of api] (split) {\textbf{Tri-Partition Peeler}\\ Left / Right Boundaries\\ Middle Core Exposure\\ $\delta_p$ Seam Padding};
+    \node[box, right=1.5cm of api] (split) {\textbf{Tri-Partition Peeler}\\ Left / Right Boundaries\\ Middle Core Exposure\\ $\delta_p$ Seam Padding};
     
     % Chunk Scorer
     \node[box, above=0.8cm of split] (scorer) {\textbf{Chunk-Level Scorer}\\ Max-Pooling $\max \cos(Q, c)$\\ 768-d Vector Cosine};
@@ -654,7 +657,7 @@ The entire system is architected for zero-leakage, edge-native deployment (Fig.~
 \textbf{Memory} & 16.0 GB Unified Memory (68.25 GB/s bandwidth) \\
 \textbf{Inference Accelerator} & Metal Performance Shaders (MPS) / Apple Neural Engine \\
 \textbf{Inference Engine} & Local Ollama v0.5.4 \\
-\textbf{Generative Model} & \texttt{Llama 3.2 3B-Instruct} (\texttt{q4\_K\_M} quantized) \\
+\textbf{Generative Model} & \texttt{Llama 3.2 3B-Instruct} (\texttt{q4\_K\_M}) \\
 \textbf{Embedding Model} & \texttt{nomic-embed-text-v1.5} (768 dimensions) \\
 \textbf{Backend Framework} & Python 3.11, FastAPI 0.115, Uvicorn, HTTPX \\
 \textbf{Storage Layer} & SQLite 3.43 (WAL mode, cache size -64000) \\
@@ -685,9 +688,9 @@ Table~\ref{tab:niah_results} presents empirical results on the 21,408-word bench
 \centering
 \caption{Empirical Needle-in-a-Haystack (NIAH) Performance Comparison on 21,408-Word Document}
 \label{tab:niah_results}
-\begin{tabularx}{\textwidth}{Xccccc}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccc}
 \toprule
-\textbf{Retrieval / Reasoning Paradigm} & \textbf{Recursion Depth ($d^*$)} & \textbf{Evaluated Words} & \textbf{Token Footprint Reduction} & \textbf{Exact Match (EM)} & \textbf{End-to-End Latency} \\
+\textbf{Retrieval / Reasoning Paradigm} & \textbf{Depth ($d^*$)} & \textbf{Evaluated Words} & \textbf{Token Reduction} & \textbf{Exact Match (EM)} & \textbf{Latency} \\
 \midrule
 Vanilla \texttt{Llama 3.2 3B} (128k Full Scan) & N/A & 21,408 & 0.0\% & \textbf{0.0\% (NOT\_FOUND)} & 48.20 s \\
 Naive Ternary Cosine Partitioning & 4 & 264 & 98.7\% & \textbf{0.0\% (Discarded)} & 14.80 s \\
@@ -695,7 +698,7 @@ Standard Dense Top-8 Chunk RAG (Cosine) & 1 & 2,048 & 90.4\% & 33.3\% (Top-1 Mis
 Lexical BM25 (Robertson et al.) & 1 & 256 & 98.8\% & 100.0\% (Lex) / 0.0\% (Para) & 4.12 s \\
 \textbf{\RBER{} Framework (Proposed)} & \textbf{2} & \textbf{2,400} & \textbf{88.8\%} & \textbf{100.0\% (Both)} & \textbf{21.09 s} \\
 \bottomrule
-\end{tabularx}
+\end{tabular*}
 \end{table*}
 
 \begin{figure*}[t]
@@ -703,12 +706,14 @@ Lexical BM25 (Robertson et al.) & 1 & 256 & 98.8\% & 100.0\% (Lex) / 0.0\% (Para
 \begin{tikzpicture}
 \begin{scope}[scale=0.95]
     % Axes
-    \draw[->, thick, >=stealth] (0,0) -- (14.5,0) node[below right, font=\footnotesize] {Needle Depth Position in Haystack (\%)};
-    \draw[->, thick, >=stealth] (0,0) -- (0,4.5) node[above, font=\footnotesize] {Exact Match Retrieval Recall (\%)};
+    \draw[->, thick, >=stealth] (0,0) -- (14.2,0);
+    \draw[->, thick, >=stealth] (0,0) -- (0,4.5);
+    \node[font=\footnotesize] at (7.0, -0.65) {Needle Insertion Depth in Context (\%)};
+    \node[font=\footnotesize, rotate=90] at (-0.6, 2.25) {Exact Match Recall (\%)};
     
     % Grid lines
     \foreach \y in {1, 2, 3, 4} {
-        \draw[gray!20, dashed] (0,\y) -- (14,\y);
+        \draw[gray!20, dashed] (0,\y) -- (13.8,\y);
     }
     \foreach \x in {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100} {
         \pgfmathsetmacro{\pos}{\x * 0.13 + 0.5}
@@ -723,27 +728,31 @@ Lexical BM25 (Robertson et al.) & 1 & 256 & 98.8\% & 100.0\% (Lex) / 0.0\% (Para
     \node[left, font=\scriptsize] at (0, 4.0) {100\%};
     
     % Vanilla LLM 128k (U-Curve Collapse)
-    \draw[red!80!black, ultra thick, mark=*, mark size=2pt] 
+    \draw[red!80!black, ultra thick, mark=*, mark size=2.5pt] 
         plot coordinates {
             (0.5, 4.0) (1.8, 3.6) (3.1, 1.2) (4.4, 0.0) (5.7, 0.0) 
             (7.0, 0.0) (8.3, 0.0) (9.6, 0.0) (10.9, 0.8) (12.2, 3.2) (13.5, 4.0)
         };
-    \node[red!80!black, font=\scriptsize\bfseries] at (7.0, 0.4) {Vanilla \texttt{Llama 3.2 3B} Full Scan (0\% in Middle)};
     
     % BM25 Paraphrased
-    \draw[gray!70, thick, mark=square*, mark size=1.5pt, dashed] 
+    \draw[gray!70, thick, mark=square*, mark size=2pt, dashed] 
         plot coordinates {
             (0.5, 0.0) (3.1, 0.0) (5.7, 0.0) (7.0, 0.0) (9.6, 0.0) (13.5, 0.0)
         };
-    \node[gray!70!black, font=\tiny] at (3.5, 0.25) {BM25 (Paraphrased Query: 0\% Recall)};
     
     % RBER (Flat 100% across all positions)
-    \draw[blue!70!black, line width=2.5pt, mark=diamond*, mark size=3pt] 
+    \draw[blue!70!black, line width=2.2pt, mark=diamond*, mark size=3.5pt] 
         plot coordinates {
             (0.5, 4.0) (1.8, 4.0) (3.1, 4.0) (4.4, 4.0) (5.7, 4.0) 
             (7.0, 4.0) (8.3, 4.0) (9.6, 4.0) (10.9, 4.0) (12.2, 4.0) (13.5, 4.0)
         };
-    \node[blue!70!black, font=\scriptsize\bfseries] at (7.0, 4.25) {\RBER{} (100\% Recall Across All Depths)};
+        
+    % Clean Professional Legend Box
+    \node[fill=white, draw=gray!40, rounded corners=3pt, inner sep=5pt, align=left] at (7.0, 2.3) {
+        \textcolor{blue!70!black}{\textbf{--- \RBER{} Framework (100.0\% Exact Match Recall Uniformly)}}\\[2pt]
+        \textcolor{red!80!black}{\textbf{--- Vanilla \texttt{Llama 3.2 3B} Full Scan (0.0\% Middle Collapse)}}\\[2pt]
+        \textcolor{gray!70!black}{\textbf{- - - Lexical BM25 (Paraphrased Queries: 0.0\% Recall)}}
+    };
 
 \end{scope}
 \end{tikzpicture}
@@ -931,13 +940,14 @@ In compliance with open science and reproducibility standards:
 
 \subsection{Reproduction Command Line Guide}
 Researchers can replicate all reported benchmark tables using:
+\begin{footnotesize}
 \begin{verbatim}
 # 1. Clone repository
 git clone https://github.com/krishaggarwal39/\
           Neddle_In_The_Haystack.git
 cd Neddle_In_The_Haystack
 
-# 2. Setup virtual environment & dependencies
+# 2. Virtualenv & dependencies
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
@@ -948,6 +958,7 @@ ollama pull llama3.2 && ollama pull nomic-embed-text
 python benchmarks/benchmark_retrieval.py
 python benchmark/run.py
 \end{verbatim}
+\end{footnotesize}
 
 % ==============================================================================
 % SECTION XIII: CONCLUSION
