@@ -12,6 +12,15 @@ All required academic deliverables, worksheets, and project documentation for ev
   - Unit 2 Worksheet: [`RM_UNIT_2_COMPLETED_KRISH_AGGARWAL.pdf`](submission_docs/RM_UNIT_2_COMPLETED_KRISH_AGGARWAL.pdf)
   - Unit 3 Worksheet: [`RM_UNIT_3_COMPLETED_KRISH_AGGARWAL.pdf`](submission_docs/RM_UNIT_3_COMPLETED_KRISH_AGGARWAL.pdf)
 
+## 📄 Academic Research Paper (Overleaf & LaTeX Ready)
+
+The complete 6+ page academic research paper formatted in IEEE Conference style is available in the **[`latex_paper/`](latex_paper/)** directory:
+* **Overleaf 1-Click ZIP:** [`latex_paper/RBER_Research_Paper_Overleaf.zip`](latex_paper/RBER_Research_Paper_Overleaf.zip) (Ready to drag-and-drop into Overleaf via *New Project* $\to$ *Upload Project*).
+* **Master LaTeX Source:** [`latex_paper/main.tex`](latex_paper/main.tex)
+* **BibTeX References:** [`latex_paper/references.bib`](latex_paper/references.bib) (23+ authentic citations)
+* **Paper Details & Guide:** [`latex_paper/README.md`](latex_paper/README.md)
+* **Included Components:** Abstract, Introduction, Burger Analogy Theory, Mathematical Formulation, Algorithms 1 & 2, System Architecture & Attention Decay TikZ Diagrams, 4 Comparison & Ablation Tables, Vector UI Mockup, and Empirical Benchmarks.
+
 ## Run locally
 
 1. Install [Ollama](https://ollama.com/) and start its service. Pull the models:
