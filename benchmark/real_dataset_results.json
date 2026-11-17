@@ -1,0 +1,899 @@
+{
+  "summary": {
+    "total_samples": 30,
+    "middle_samples": 16,
+    "overall_accuracy": {
+      "Fixed_Boundary": 13.33,
+      "BM25_Top1": 46.67,
+      "BM25_Top3": 100.0,
+      "Dense_Top1": 36.67,
+      "Dense_Top3": 86.67,
+      "RBER": 86.67
+    },
+    "middle_depth_accuracy (Lost-in-the-Middle Region)": {
+      "Fixed_Boundary": 0.0,
+      "BM25_Top3": 100.0,
+      "Dense_Top3": 87.5,
+      "RBER": 81.25
+    },
+    "efficiency": {
+      "avg_document_words": 9136.3,
+      "avg_rber_exposed_words": 2153.2,
+      "token_reduction_pct": 76.43,
+      "avg_rber_depth": 1.8,
+      "avg_rber_calls": 2.8
+    }
+  },
+  "trials": [
+    {
+      "id": "c4f1ac79563855bed45814abd246717bfa5b05d275a9ed5c",
+      "total_words": 9022,
+      "rel_depth": 43.0,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 15",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": false,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "1c84398a5d9857c046163eaf29b3a1d7e1ea7b79c23430ec",
+      "total_words": 9632,
+      "rel_depth": 18.4,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 8",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": false,
+        "depth": 3,
+        "words": 2871,
+        "calls": 4
+      }
+    },
+    {
+      "id": "803a8ee56e14440e185aaf0eb0f82b9f060cb70b4b074311",
+      "total_words": 8705,
+      "rel_depth": 80.8,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 24",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": false,
+        "top5": false,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "da1fa85f8174998cedcf84594b7a9a8319333e9075e2f87b",
+      "total_words": 9701,
+      "rel_depth": 31.3,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 12",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "b10a218e6b73efe51ffaf96211a359d3d123ea26b7379945",
+      "total_words": 10111,
+      "rel_depth": 14.0,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 5",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "5f95e26ccd46458401164d5798ff1bcf0f8f64caaf6c0543",
+      "total_words": 9203,
+      "rel_depth": 0.0,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 1",
+      "fixed_boundary": {
+        "hit": true,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 0,
+        "words": 800,
+        "calls": 1
+      }
+    },
+    {
+      "id": "cfe08e061279316727878955c6b59d23911ee5282bc59a90",
+      "total_words": 8152,
+      "rel_depth": 52.3,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 14",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 3,
+        "words": 2886,
+        "calls": 4
+      }
+    },
+    {
+      "id": "1f31b83ce91f9d99d5a93b2af35e02c8eddb5619018b168c",
+      "total_words": 9320,
+      "rel_depth": 45.9,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 15",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "ca133d0d2c11e4b47a283bb10a3b8dcca16ff49212f86f6b",
+      "total_words": 9204,
+      "rel_depth": 35.6,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 13",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "62f44dae51918c20136d2cfa5469d680f04216926da0ff93",
+      "total_words": 10410,
+      "rel_depth": 0.0,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 1",
+      "fixed_boundary": {
+        "hit": true,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 0,
+        "words": 800,
+        "calls": 1
+      }
+    },
+    {
+      "id": "316c9b38c2cb04fac170f2240e7042f5ab2d8084eec3cd70",
+      "total_words": 8777,
+      "rel_depth": 86.0,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 25",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": false,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "217dd9395f0fd6ad9ca2520ab3e1688a89832450c291b7ec",
+      "total_words": 9909,
+      "rel_depth": 13.2,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 6",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "bd9d3468c50000f39e476ba33358347ef358d49f2424458c",
+      "total_words": 8830,
+      "rel_depth": 14.6,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 6",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "85cb68983fcc77140e76e3f68f27bd19dd6265c588d6dd6e",
+      "total_words": 9662,
+      "rel_depth": 92.1,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 28",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "b7bd245a08785af387abe8c1ce418342f04f8070d99be036",
+      "total_words": 9319,
+      "rel_depth": 26.0,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 10",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": false,
+        "top5": false,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 3,
+        "words": 2902,
+        "calls": 4
+      }
+    },
+    {
+      "id": "25f458b734959c49a6b17fcf3ebe8c17d783b4308eaeaf58",
+      "total_words": 7710,
+      "rel_depth": 98.6,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 30",
+      "fixed_boundary": {
+        "hit": true,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 734
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 734
+      },
+      "rber": {
+        "hit": true,
+        "depth": 0,
+        "words": 800,
+        "calls": 1
+      }
+    },
+    {
+      "id": "c795443150fa323af09da5a7a90c92df40234f1dadda9c36",
+      "total_words": 8859,
+      "rel_depth": 89.7,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 27",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "519810536eb03a3adc994472060782fdde1f57cc793ee53e",
+      "total_words": 9067,
+      "rel_depth": 34.8,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 12",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "2db15acab1b3ee478922a99301133b12c76b6f27fdc6978d",
+      "total_words": 9675,
+      "rel_depth": 66.2,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 22",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": false,
+        "depth": 3,
+        "words": 2850,
+        "calls": 4
+      }
+    },
+    {
+      "id": "bd2790fd7a4656d97185686ff14ca518c8a3588b8eaba446",
+      "total_words": 10102,
+      "rel_depth": 61.0,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 19",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": false,
+        "depth": 3,
+        "words": 2875,
+        "calls": 4
+      }
+    },
+    {
+      "id": "5243a22c8d6bf2de56bb2c824eed8a635413421ee8c72324",
+      "total_words": 8517,
+      "rel_depth": 30.4,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 9",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "69667042577b4d7a9a94660804106b6bf2a951c3d3e83e63",
+      "total_words": 9785,
+      "rel_depth": 0.0,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 1",
+      "fixed_boundary": {
+        "hit": true,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 0,
+        "words": 800,
+        "calls": 1
+      }
+    },
+    {
+      "id": "92e203d4608b03e6fe5bc3e4f11b875939f7bfbbf2df1311",
+      "total_words": 10024,
+      "rel_depth": 4.1,
+      "depth_category": "Head (0-20%)",
+      "target": "Paragraph 2",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 3,
+        "words": 2927,
+        "calls": 4
+      }
+    },
+    {
+      "id": "54efe13a200532d1384f97b2e45f4f61842bd11fcba9ef2b",
+      "total_words": 8715,
+      "rel_depth": 33.9,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 11",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 699
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "b7f8150c889af8225cd32165f4f1e0727f4044e35b580b43",
+      "total_words": 8555,
+      "rel_depth": 80.6,
+      "depth_category": "Tail (80-100%)",
+      "target": "Paragraph 27",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "392e4623363cb01f1a428a492ce05f275522df46f203bd5d",
+      "total_words": 8896,
+      "rel_depth": 22.2,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 6",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": true,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "3e3274ce6f6a2578c1a0940bebabba18fe125f89266acbb9",
+      "total_words": 7804,
+      "rel_depth": 21.0,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 6",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": false,
+        "depth": 3,
+        "words": 2781,
+        "calls": 4
+      }
+    },
+    {
+      "id": "ad6735c4347fa03f0a3a5630dcf69a91176eab7656dd6015",
+      "total_words": 8483,
+      "rel_depth": 35.5,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 12",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 1,
+        "words": 1600,
+        "calls": 2
+      }
+    },
+    {
+      "id": "5dea97cd23a5e9f4844f3f42218ccf4d547944a9a11825cc",
+      "total_words": 8710,
+      "rel_depth": 57.6,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 16",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 2,
+        "words": 2400,
+        "calls": 3
+      }
+    },
+    {
+      "id": "1f7987b7c7a14eba9fe978296c1704af5c27aff2a0bf0ff0",
+      "total_words": 9231,
+      "rel_depth": 60.7,
+      "depth_category": "Middle (20-80%)",
+      "target": "Paragraph 20",
+      "fixed_boundary": {
+        "hit": false,
+        "words": 800
+      },
+      "bm25": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "dense": {
+        "top1": false,
+        "top3": true,
+        "top5": true,
+        "words": 768
+      },
+      "rber": {
+        "hit": true,
+        "depth": 3,
+        "words": 2905,
+        "calls": 4
+      }
+    }
+  ]
+}
