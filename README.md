@@ -21,6 +21,36 @@ The complete 6+ page academic research paper formatted in IEEE Conference style 
 * **Paper Details & Guide:** [`latex_paper/README.md`](latex_paper/README.md)
 * **Included Components:** Abstract, Introduction, Burger Analogy Theory, Mathematical Formulation, Algorithms 1 & 2, System Architecture & Attention Decay TikZ Diagrams, 4 Comparison & Ablation Tables, Vector UI Mockup, and Empirical Benchmarks.
 
+## 📊 Datasets & Empirical Benchmarks
+
+The repository provides automated reproduction suites across both controlled stress-tests and canonical real-world long-context academic benchmarks:
+
+### 1. Adversarial Needle-in-a-Haystack (NIAH) Corpus
+* **File:** [`long.txt`](long.txt)
+* **Scale:** 21,408 words ($\sim 28,000$ tokens), dense longitudinal historical text.
+* **Evaluation Protocol:** A targeted semantic needle (`SECRET KEY: The combination to the safe is "AGI is Coming"`) is systematically swept across 21 relative depth positions ($0\%, 5\%, 10\%, \dots, 100\%$) to test *Lost-in-the-Middle* degradation.
+* **Benchmark Script:** [`benchmarks/benchmark_retrieval.py`](benchmarks/benchmark_retrieval.py)
+* **Result:** Vanilla 128k LLMs collapse to 0.0% Exact Match in the middle 40%–60% zone; RBER achieves **100.0% Exact Match uniformly** with an 88.8% evaluated token reduction.
+
+### 2. Real-World LongBench Benchmark (ACL 2024)
+* **Dataset Mirrors:** 
+  - [`passage_retrieval_en.jsonl`](https://huggingface.co/datasets/Leooyii/longbench/resolve/main/passage_retrieval_en.jsonl): 200 multi-page long documents ($7,379$ to $11,350$ words each, median $9,132$ words / $\sim 12,200$ tokens).
+  - [`multifieldqa_en.jsonl`](https://huggingface.co/datasets/Leooyii/longbench/resolve/main/multifieldqa_en.jsonl): 150 diverse multi-domain documents (academic papers, legal transcripts, literature).
+* **Citation:** Bai et al., *"LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding"*, ACL 2024.
+* **Evaluation Script:** [`benchmark/evaluate_longbench.py`](benchmark/evaluate_longbench.py)
+* **Detailed Report:** Full per-trial logs, depth classifications, and token statistics in [`benchmark/REAL_DATASET_REPORT.md`](benchmark/REAL_DATASET_REPORT.md).
+* **Key Finding:** Fixed Boundary screening suffers a 0.0% collapse across the middle 20%–80% depth zone; standard dense vector chunking achieves only 36.7% Top-1 accuracy due to vector dilution. RBER achieves **86.7% overall retrieval recall** and **81.3% in the deep middle**, slashing evaluated token volume by **76.4%** in $d = 1.8$ mean steps.
+
+### Quick Dataset Replication
+```bash
+# 1. Run the CPU-only adversarial NIAH benchmark (21 depths)
+python3 benchmarks/benchmark_retrieval.py
+
+# 2. Download and evaluate the real-world LongBench benchmark (e.g. 30 samples)
+curl -L -o data/passage_retrieval_en.jsonl https://huggingface.co/datasets/Leooyii/longbench/resolve/main/passage_retrieval_en.jsonl
+python3 benchmark/evaluate_longbench.py 30
+```
+
 ## Run locally
 
 1. Install [Ollama](https://ollama.com/) and start its service. Pull the models:
